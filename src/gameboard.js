@@ -1,0 +1,52 @@
+const Ship = require('./ship')
+
+const Gameboard = (size) => {
+    const board = createArray(size); //create 2D array to store coordinates of size x size grid
+    const checkBoard = () => board;
+    const placeShip = (battleShip, y, x) => {
+        if ((battleShip.isHorizontal()) &&  //check ship orientation, horizontal
+            (x + battleShip.length() <= size) && //check ship doesn't overflow border
+            (locationsFreeX(battleShip.length(), y, x, board))) {  //check all spaces are free
+                for (i = x; i < (x + battleShip.length()); i++) {
+                    board[y][i].ship = battleShip;
+                }
+        } else if ((!battleShip.isHorizontal()) && //vertical
+            (y + battleShip.length() <= size) && //check ship doesn't overflow border
+            (locationsFreeY(battleShip.length(), y, x, board))) {  //check all spaces are free
+                for (i = y; i < (y + battleShip.length()); i++) {
+                    board[i][x].ship = battleShip;
+                }
+            }
+        }
+    return {checkBoard, placeShip}
+}
+
+function createArray(size) {
+    const outerArray = [];
+    for (i = 0; i < size; i++) {
+        const innerArray = [];
+        for (n = 0; n < size; n++) {
+            const object = {ship: null, hit: false};
+            innerArray.push(object);
+        } outerArray.push(innerArray)
+    }
+    return outerArray;
+}
+
+function locationsFreeX(length, y, x, board) {
+    for (i = x; i < (x + length); i++) {
+        if (board[y][i].ship !== null) { //if where the ship is going to places already contains a ship
+            return false
+        }
+    } return true
+}
+
+function locationsFreeY(length, y, x, board) {
+    for (i = y; i < (y + length); i++) {
+        if (board[i][x].ship !== null) {
+            return false
+        }
+    } return true
+}
+
+module.exports = Gameboard
