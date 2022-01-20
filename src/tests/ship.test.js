@@ -6,7 +6,7 @@ test('get length', () => {
 });
 
 test('get orientation', () => {
-    expect(ship1.isHorizontal()).toBe(true);
+    expect(ship1.isHorizontal()).toBeTruthy();
 })
 
 const ship2 = Ship(3);
@@ -14,12 +14,12 @@ ship2.hit();
 ship2.hit()
 ship2.changeOrientation();
 test('ship not sunk if health remains', () => {
-    expect(ship2.isSunk()).toStrictEqual(false);
+    expect(ship2.isSunk()).toBeFalsy();
 });
 
 test('change orientation works', () => {
-    expect(ship2.isHorizontal()).toBe(false);
-})
+    expect(ship2.isHorizontal()).toBeFalsy();
+});
 
 const ship3 = Ship(3);
 ship3.hit();
@@ -27,4 +27,4 @@ ship3.hit();
 ship3.hit();
 test('ship sunk if health depleted', () => {
     expect(ship3.isSunk()).toStrictEqual(true);
-})
+});

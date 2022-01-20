@@ -77,7 +77,7 @@ gameBoard11.placeShip(ship4, 0, 0);
 gameBoard11.receiveAttack(0, 0);
 gameBoard11.receiveAttack(0, 0);
 test('health of ship not affected if attack hits same spot', () => {
-    expect(ship4.isSunk()).toBe(false)
+    expect(ship4.isSunk()).toBeFalsy();
 });
 
 //all ships sunk
@@ -86,7 +86,7 @@ const gameBoard12 = Gameboard(2);
 gameBoard12.placeShip(ship5, 0, 0);
 gameBoard12.receiveAttack(0, 0);
 test('all ship sunk return false if some ship locations are still not hit', () => {
-    expect(gameBoard12.checkLose()).toBe(false)
+    expect(gameBoard12.checkLose()).toBeFalsy();
 });
 
 const ship6 = Ship(2);
@@ -95,5 +95,5 @@ gameboard13.placeShip(ship6, 0, 0);
 gameboard13.receiveAttack(0, 0);
 gameboard13.receiveAttack(0, 1);
 test('all ship sunk return true if all ships are sunk', () => {
-    expect(gameboard13.checkLose()).toBe(true)
+    expect(gameboard13.checkLose()).toBeTruthy();
 });
