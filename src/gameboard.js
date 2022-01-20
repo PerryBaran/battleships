@@ -1,8 +1,7 @@
-const Ship = require('./ship')
-
 const Gameboard = (size) => {
     const board = createArray(size); //create 2D array to store coordinates of size x size grid
     const checkBoard = () => board;
+
     const placeShip = (battleShip, y, x) => {
         if ((battleShip.isHorizontal()) &&  //check ship orientation, horizontal
             (x + battleShip.length() <= size) && //check ship doesn't overflow border
@@ -18,7 +17,29 @@ const Gameboard = (size) => {
                 }
             }
         }
-    return {checkBoard, placeShip}
+
+    const receiveAttack = (y, x) => {
+        if (board[y][x].hit === false) {    //check if coordinate has been hit
+            if (board[y][x].ship === null) {    // check if coordinate doesn't contain a ship
+                board[y][x].hit = true;
+            } else {
+                board[y][x].ship.hit();
+                board[y][x].hit = true;
+            }
+        }
+    }
+
+    const checkLose = () => {
+        for (y = 0; y < size; y++) {
+            for (x = 0; x < size; x++) {
+                if (board[y][x].ship !== null && board[y][x].hit === false) { //if any position contains a ship section that has not been hit
+                    return false
+                }
+            }
+        }
+        return true;
+    }
+    return {checkBoard, placeShip, receiveAttack, checkLose}
 }
 
 function createArray(size) {
@@ -35,7 +56,7 @@ function createArray(size) {
 
 function locationsFreeX(length, y, x, board) {
     for (i = x; i < (x + length); i++) {
-        if (board[y][i].ship !== null) { //if where the ship is going to places already contains a ship
+        if (board[y][i].ship !== null) { //if where the ship is going to be placed already contains a ship
             return false
         }
     } return true
