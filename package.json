@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Squilly-flac/battleships#readme",
   "devDependencies": {
     "jest": "^27.4.7",
-    "webpack": "^5.66.0",
+    "webpack": "^5.67.0",
     "webpack-cli": "^4.9.1"
   },
   "jest": {
