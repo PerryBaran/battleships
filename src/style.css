@@ -26,7 +26,7 @@ h1 {
 
 .player {
     border: 2px solid var(--dark-blue);
-    border-radius: 10px;
+    border-radius: 2px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 15%;
@@ -40,7 +40,7 @@ h1 {
     margin-bottom: 10px;
     font-size: 3rem;
     width: 300px;
-    border-radius: 10px;
+    border-radius: 2px;
     border: 1px solid black;
 }
 
@@ -65,25 +65,20 @@ input[type="color"] {
 }
 
 .computerInput {
-    display: block;
-    margin-left: 5px;
-    position: relative;
-    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    width: 100%;
 }
 
-.computerInput > p {
+.computerInput > button {
     display: inline-block;
     font-size: 2rem;
-    margin-left: 5px;
-}
-
-.checkboxWrapper {
-    display: inline-block;
-    zoom: 2;
-    position: relative;
-    top: 2px;
-    margin-left: 2px;
-    margin-right: 4px;
+    background-color: none;
+    color: var(--dark-blue);
+    border: 2px solid var(--dark-blue);
+    border-radius: 2px;
 }
 
 #start {
@@ -105,29 +100,34 @@ input[type="color"] {
     background-color: var(--dark-blue);
     color: white;
     border: 2px solid var(--darker-blue);
-    border-radius: 5px;
+    border-radius: 2px;
 }
-
 
 
 .container {
-    display: inline-flex;
-    width: 49%;
-    background: orange;
-    border: 1px solid orangered;
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+    overflow: scroll;
 }
 
-.players {
+.harbor.top {
     display: block;
-    background-color: red;
+    position:absolute; 
+    bottom:0;
     width: 100%;
-    height: 800px;
     text-align: center;
 }
 
-.inputs {
-    background-color: orchid;
-    margin: 5px;
+.ship {
+    margin: 10px;
+}
+
+.shipPart {
+    background-color: grey;
+    border: 1px solid rgb(17, 17, 17);
+    aspect-ratio: 1/1;
+    height: calc(45vh / 10);
 }
 
 .gameboard {
@@ -135,33 +135,15 @@ input[type="color"] {
     grid-template-columns: repeat(10, 1fr);
     aspect-ratio: 1/1;
     height: 200px;
-    background-color: green;
-    margin-bottom: 5px;
+}
+
+.gameboard.bottom {
+    margin-top: 20px;
 }
 
 .cell {
-    background-color: rgb(255, 0, 0);
+    background-color: white;
     aspect-ratio: 1/1;
-    width: 40px;
-    border: 2px solid black;
-}
-
-.harbor {
-    background-color: palegreen;
-    height: 200px;
-    position: relative;
-    top: 200px;
-}
-
-.ship {
-    display: inline-flex;
-    margin: 10px;
-    
-}
-
-.shipPart {
-    background-color: peru;
-    border: 1px solid black;
-    aspect-ratio: 1/1;
-    height: 20px;
+    width: calc(45vh / 10);
+    border: 1px solid rgb(192, 192, 192);
 }

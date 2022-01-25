@@ -7,11 +7,7 @@ const Player = (nameInput, colourInput, gameBoardSize) => {
     const getName = () => name;
     const colour = colourInput;
     const getColour = () => colour;
-    const isPlaced = false;
-    const place = () => isPlaced = true;
-    const remove = () => isPlaced = false;
-    const placed = () => isPlaced;
-    return {getBoard, getName, getColour, place, remove, placed}
+    return {getBoard, getName, getColour}
 }
 
 module.exports = Player;

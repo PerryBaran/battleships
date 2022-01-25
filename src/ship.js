@@ -12,7 +12,11 @@ const Ship = (size) => {
     const isSunk = () => sunk;
     const isHorizontal = () => horizontal;
     const changeOrientation = () => horizontal = (horizontal ? false : true);
-    return {length, hit, isSunk, isHorizontal, changeOrientation}
+    const isPlaced = false;
+    const place = () => isPlaced = true;
+    const remove = () => isPlaced = false;
+    const placed = () => isPlaced;
+    return {length, hit, isSunk, isHorizontal, changeOrientation, place, remove, placed}
 }
 
 module.exports = Ship;

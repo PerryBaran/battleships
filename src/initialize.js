@@ -13,9 +13,29 @@ const initializePage = () => {
     content.appendChild(topBar);
 
     //create players
-    const info1 = createPlayer('Player 1', '#FF0000', false);
-    const info2 = createPlayer('Player 2', '#0000FF', true);
+    const info1 = createPlayer('Player 1', '#FF0000');
+    const info2 = createPlayer('Player 2', '#0000FF');
+    
+    //player 2 is computer option
+    let computer = true;
 
+    const container = document.createElement('div');
+    container.className = "computerInput";
+    const option = document.createElement('button');
+    option.innerHTML = 'player vs computer';
+    container.appendChild(option);
+    content.appendChild(container);
+
+    option.onclick = () => {
+        if (computer) {
+            computer = false;
+            option.innerHTML = 'player vs player'
+        } else {
+            computer = true;
+            option.innerHTML = 'player vs computer';
+        }
+    }
+   
     //start button
     const startWrapper = document.createElement('div');
     startWrapper.id = 'start';
@@ -25,19 +45,19 @@ const initializePage = () => {
     content.appendChild(startWrapper);
 
     start.addEventListener('click', () => {
-        setup(info1, info2);
+        setup(info1, info2, computer);
     })
 }
 
-function createPlayer(nameValue, colorValue, computer) {
-    const container1 = document.createElement('div');
-    container1.className = 'player'
-    content.appendChild(container1);
+function createPlayer(nameValue, colorValue) {
+    const container = document.createElement('div');
+    container.className = 'player'
+    content.appendChild(container);
 
     const name = document.createElement('input');
     name.value = nameValue;
     name.className = 'nameInput'
-    container1.appendChild(name);
+    container.appendChild(name);
 
     const wrapper = document.createElement('div');
     wrapper.className = 'colorPicker'
@@ -48,35 +68,19 @@ function createPlayer(nameValue, colorValue, computer) {
     wrapper.style.background = color.value;
     name.style.color = color.value;
     
-    color.addEventListener('change', () => {
+    color.addEventListener('input', () => {
         wrapper.style.background = color.value;
         name.style.color = color.value;
     });
 
     wrapper.appendChild(color);
-    container1.appendChild(wrapper);
+    container.appendChild(wrapper);
 
-    if (computer) { //add computer checkbox
-        const container2 = document.createElement('div');
-        container2.className = "computerInput";
-        const option = document.createElement('p');
-        option.innerHTML = 'computer:';
-        container2.appendChild(option);
-
-        const checkboxWrapper = document.createElement('div');
-        checkboxWrapper.className = 'checkboxWrapper'
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = true;
-        checkboxWrapper.appendChild(checkbox);
-        container2.appendChild(checkboxWrapper);
-        container1.appendChild(container2);
-        return {name: name, color: color, computer: checkbox}
-    } else {
-        return {name: name, color: color}
-    }
     
+    return {name: name, color: color}
 }
+    
+
 
 
 module.exports = initializePage;
