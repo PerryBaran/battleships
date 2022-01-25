@@ -5,17 +5,110 @@
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }
 
+:root{
+    --dark-blue: rgb(1, 60, 128);
+    --darker-blue: rgb(1, 28, 59);
+}
+
+/*initial screen*/
+#topbar {
+    background: var(--dark-blue);
+    height: 60px;
+}
+
 h1 {
     color: white;
     position: absolute;
-    top: 11px;
+    top: 17px;
     left: 5px;
+    font-size: 3rem;
 }
 
-#topbar {
-    background: rgb(1, 60, 128);
-    height: 40px;
+.player {
+    border: 2px solid var(--dark-blue);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15%;
+    height: fit-content;
+    width: 380px;
 }
+
+.nameInput {
+    display: inline-block;
+    margin: 5px;
+    margin-bottom: 10px;
+    font-size: 3rem;
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.colorPicker {
+    display: inline-block;
+    aspect-ratio: 1/1;
+    height: 50px;
+    border-radius: 100px;
+    border: 2px solid black;
+    margin: 5px;
+    position: relative;
+    top: 10px;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border-radius: 100px;
+    aspect-ratio: 1/1;
+    height: 50px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.computerInput {
+    display: block;
+    margin-left: 5px;
+    position: relative;
+    bottom: 10px;
+}
+
+.computerInput > p {
+    display: inline-block;
+    font-size: 2rem;
+    margin-left: 5px;
+}
+
+.checkboxWrapper {
+    display: inline-block;
+    zoom: 2;
+    position: relative;
+    top: 2px;
+    margin-left: 2px;
+    margin-right: 4px;
+}
+
+#start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+}
+
+#start > button {
+    width: 200px;
+    height: 60px;
+    font-size: 3rem;
+    margin: auto;
+    background-color: var(--dark-blue);
+    color: white;
+    border: 2px solid var(--darker-blue);
+    border-radius: 5px;
+}
+
+
 
 .container {
     display: inline-flex;
@@ -47,7 +140,7 @@ h1 {
 }
 
 .cell {
-    background-color: blue;
+    background-color: rgb(255, 0, 0);
     aspect-ratio: 1/1;
     width: 40px;
     border: 2px solid black;

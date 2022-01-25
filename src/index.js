@@ -1,7 +1,7 @@
 import './style.css';
-const initializeGame = require('./initialize');
+const initializePage = require('./initialize');
 
-initializeGame();
+initializePage();
 
 
 
