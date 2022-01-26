@@ -27,8 +27,6 @@ h1 {
 .player {
     border: 2px solid var(--dark-blue);
     border-radius: 2px;
-    margin-left: 10px;
-    margin-right: 10px;
     margin-top: 15%;
     height: fit-content;
     width: 380px;
@@ -103,7 +101,7 @@ input[type="color"] {
     border-radius: 2px;
 }
 
-
+/*setup screen*/
 .container {
     position: relative;
     width: 100vw;
@@ -124,7 +122,6 @@ input[type="color"] {
 }
 
 .shipPart {
-    background-color: grey;
     border: 1px solid rgb(17, 17, 17);
     aspect-ratio: 1/1;
     height: calc(45vh / 10);
@@ -146,4 +143,15 @@ input[type="color"] {
     aspect-ratio: 1/1;
     width: calc(45vh / 10);
     border: 1px solid rgb(192, 192, 192);
+}
+
+.rotate {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    aspect-ratio: 1;
+    height: 30px;
+    border-radius: 100px;
+    border: 1px solid var(--darker-blue);
+    background-color: var(--dark-blue);
 }
