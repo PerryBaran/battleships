@@ -12,7 +12,7 @@ const Ship = (size) => {
     const isSunk = () => sunk;
     const isHorizontal = () => horizontal;
     const changeOrientation = () => horizontal = (horizontal ? false : true);
-    const isPlaced = false;
+    var isPlaced = false;
     const place = () => isPlaced = true;
     const remove = () => isPlaced = false;
     const placed = () => isPlaced;

@@ -8,12 +8,14 @@ const Gameboard = (size) => {
             (locationsFreeX(battleShip.length(), y, x, board))) {  //check all spaces are free
                 for (i = x; i < (x + battleShip.length()); i++) {
                     board[y][i].ship = battleShip;
+                    battleShip.place();
                 }
         } else if ((!battleShip.isHorizontal()) && //vertical
             (y + battleShip.length() <= size) && //check ship doesn't overflow border
             (locationsFreeY(battleShip.length(), y, x, board))) {  //check all spaces are free
                 for (i = y; i < (y + battleShip.length()); i++) {
                     board[i][x].ship = battleShip;
+                    battleShip.place();
                 }
             }
         }
