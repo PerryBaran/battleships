@@ -3,7 +3,6 @@ const reset = require('./resetDOM');
 
 //can't figure out a way to pass id info for mobile devices without global variables
 var mobileShipId = null;
-var mobilePartId = null;
 
 const setup = (info1, info2, computer) => {
     //create players
@@ -110,6 +109,10 @@ function displayShips(container, harbor) {
             ship.addEventListener('touchend', () => {
                 displayShips(container, harbor); //reload ships
             });
+
+            ship.addEventListener('touchmove', e => {
+                e.preventDefault()
+            })
         };
     };
 };
@@ -142,12 +145,12 @@ function gameboardDOM(container, player, container2) {
 
                 const ship = player.getShips()[shipID];
                 if (ship.isHorizontal()) {
-                    const y = cell.dataset.y;
-                    const x = cell.dataset.x - partID;
+                    const y = parseInt(cell.dataset.y);
+                    const x = parseInt(cell.dataset.x - partID);
                     player.getBoard().placeShip(ship, y, x);
                 } else if (!ship.isHorizontal()) {
-                    const y = cell.dataset.y - partID;
-                    const x = cell.dataset.x;
+                    const y = parseInt(cell.dataset.y - partID);
+                    const x = parseInt(cell.dataset.x);
                     player.getBoard().placeShip(ship, y, x);
                 }
                 gameboardDOM(container, player, container2); //reload board
@@ -155,20 +158,10 @@ function gameboardDOM(container, player, container2) {
 
             //drag and drop mobile
             cell.addEventListener('touchend', () => {
-                console.log('yo');
-                const shipID = mobileShipId;
-                const partID = mobilePartId;
-
-                const ship = player.getShips()[shipID];
-                if (ship.isHorizontal()) {
-                    const y = cell.dataset.y;
-                    const x = cell.dataset.x - partID;
-                    player.getBoard().placeShip(ship, y, x);
-                } else if (!ship.isHorizontal()) {
-                    const y = cell.dataset.y - partID;
-                    const x = cell.dataset.x;
-                    player.getBoard().placeShip(ship, y, x);
-                }
+                const ship = player.getShips()[mobileShipId]
+                const y = parseInt(cell.dataset.y);
+                const x = parseInt(cell.dataset.x);
+                player.getBoard().placeShip(ship, y, x);
                 gameboardDOM(container, player, container2);
                 displayShips(container2, player.getShips());
             });

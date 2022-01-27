@@ -5,14 +5,16 @@ const Gameboard = (size) => {
     const placeShip = (battleShip, y, x) => {
         if ((battleShip.isHorizontal()) &&  //check ship orientation, horizontal
             (x + battleShip.length() <= size) && //check ship doesn't overflow border
-            (locationsFreeX(battleShip.length(), y, x, board))) {  //check all spaces are free
+            (locationsFreeX(battleShip.length(), y, x, board)) &&   //check all spaces are free
+            (!battleShip.placed())) {  //check ship hasn't already been placed
                 for (i = x; i < (x + battleShip.length()); i++) {
                     board[y][i].ship = battleShip;
                     battleShip.place();
                 }
         } else if ((!battleShip.isHorizontal()) && //vertical
             (y + battleShip.length() <= size) && //check ship doesn't overflow border
-            (locationsFreeY(battleShip.length(), y, x, board))) {  //check all spaces are free
+            (locationsFreeY(battleShip.length(), y, x, board)) &&   //check all spaces are free
+            (!battleShip.placed())) {  //check ship hasn't already been placed
                 for (i = y; i < (y + battleShip.length()); i++) {
                     board[i][x].ship = battleShip;
                     battleShip.place();
