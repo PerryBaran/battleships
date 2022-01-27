@@ -1,9 +1,6 @@
 const Player = require('./player');
 const reset = require('./resetDOM');
 
-//can't figure out a way to pass id info for mobile devices without global variables
-var mobileShipId = null;
-
 const setup = (info1, info2, computer) => {
     //create players
     const player1 = Player(info1.name.value, info1.color.value, 10);
@@ -11,15 +8,14 @@ const setup = (info1, info2, computer) => {
 
     //DOM
     reset(content);
- 
     const container1 = document.createElement('div');
     container1.className = 'container';
     content.appendChild(container1);
+    instructionsDom(container1);
+
     const dock = document.createElement('dock');
     dock.className = 'harbor top';
     container1.appendChild(dock);
-
-    displayShips(dock, player1.getShips()); //array of ship DOM elements
 
     const container2 = document.createElement('div');
     container2.className = 'container';
@@ -28,29 +24,29 @@ const setup = (info1, info2, computer) => {
     gameboard.className = 'gameboard bottom';
     container2.appendChild(gameboard);
 
-    gameboardDOM(gameboard, player1, dock); //array of gameboard cells
-
-    //drag and drop
-   
-    
-    //on continue, if computer = false, set up page for player 2
-    //if computer = true, randomly place ships for player 2
-    //on continue, set up game loop
+    displayShips(dock, player1, gameboard); //array of ship DOM elements
+    gameboardDOM(gameboard, player1, dock); //array of gameboard cells 
 };
 
-
-   
-    
-    
-    //build gameboard player 1
-    //add continue button
-    //loop through with player 2 or randomly place ships
-    //continue to next step
-
-//displays unplaced ships
-function displayShips(container, harbor) {
-    reset(container);
+function displayShips(shipContainer, player, boardContainer) {
+    reset(shipContainer);
     let partIndex = null; //var to pass part id to data transfer and datatransfer can't be set by mousedown
+    const harbor = player.getShips();
+
+    //continue to next setup button
+    if (allShipsPlaced(harbor)) {
+        const container = document.createElement('div');
+        container.className = 'next';
+        shipContainer.appendChild(container);
+        const nextPage = document.createElement('button');
+        nextPage.innerHTML = 'continue';
+        nextPage.className = 'continue';
+        container.appendChild(nextPage);
+        nextPage.addEventListener('click', () => {
+            console.log('what');
+        });
+    }
+
     for (i = 0; i < harbor.length; i++) {
         if (!harbor[i].placed()) { //if ship is not placed display ship
             const ship = document.createElement('div');
@@ -58,7 +54,7 @@ function displayShips(container, harbor) {
             ship.id = i;
             ship.draggable = true;
             
-            container.appendChild(ship);
+            shipContainer.appendChild(ship);
             if (harbor[i].isHorizontal()) {
                 ship.style.display = 'inline-flex';
             } else {
@@ -71,14 +67,9 @@ function displayShips(container, harbor) {
                 part.dataset.index = n;
                 ship.appendChild(part);
 
-                //dekstop
+                //dekstop drag and drop
                 part.addEventListener('mousedown', e => {
                     partIndex = part.dataset.index;
-                });
-
-                //mobile
-                part.addEventListener('touchstart', () => {
-                    mobilePartId = part.dataset.index;
                 });
             };
 
@@ -98,16 +89,19 @@ function displayShips(container, harbor) {
             });
 
             ship.addEventListener('dragend', () => {
-                displayShips(container, harbor); //reload ships
+                displayShips(shipContainer, player, boardContainer); //reload ships
             });
 
             //mobile drag
-            ship.addEventListener('touchstart', () => {
-                mobileShipId = ship.id
-            });
-
-            ship.addEventListener('touchend', () => {
-                displayShips(container, harbor); //reload ships
+            ship.addEventListener('touchend', e => {
+                const changedTouch = e.changedTouches[0];
+                const cell = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
+                const currentShip = harbor[ship.id];
+                const y = parseInt(cell.dataset.y);
+                const x = parseInt(cell.dataset.x);
+                player.getBoard().placeShip(currentShip, y, x);
+                gameboardDOM(boardContainer, player, shipContainer);
+                displayShips(shipContainer, player, boardContainer); //reload ships
             });
 
             ship.addEventListener('touchmove', e => {
@@ -117,17 +111,15 @@ function displayShips(container, harbor) {
     };
 };
 
-function gameboardDOM(container, player, container2) {
-    reset(container);
-    const cells = [];
+function gameboardDOM(boardContainer, player, shipContainer) {
+    reset(boardContainer);
     for (y = 0; y < player.getBoard().checkBoard().length; y++) {   
         for (x = 0; x < player.getBoard().checkBoard()[y].length; x++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
             cell.dataset.y = y; //y coordinate
             cell.dataset.x = x; //x coordinate
-            container.appendChild(cell);
-            cells.push(cell);
+            boardContainer.appendChild(cell);
 
             if (player.getBoard().checkBoard()[y][x].ship !== null) {
                 cell.style.background = 'red';
@@ -153,28 +145,44 @@ function gameboardDOM(container, player, container2) {
                     const x = parseInt(cell.dataset.x);
                     player.getBoard().placeShip(ship, y, x);
                 }
-                gameboardDOM(container, player, container2); //reload board
+                gameboardDOM(boardContainer, player, shipContainer); //reload board
             });
 
-            //drag and drop mobile
-            cell.addEventListener('touchend', () => {
-                const ship = player.getShips()[mobileShipId]
+            //remove ships from board
+            cell.addEventListener('click', () => {
                 const y = parseInt(cell.dataset.y);
                 const x = parseInt(cell.dataset.x);
-                player.getBoard().placeShip(ship, y, x);
-                gameboardDOM(container, player, container2);
-                displayShips(container2, player.getShips());
+                player.getBoard().removeShip(y, x);
+                gameboardDOM(boardContainer, player, shipContainer);
+                displayShips(shipContainer, player, boardContainer);
             });
         };
     };
-    return cells;
 };
 
-function dragStart(ship, partIndex) {
-    e.dataTransfer.setData('shipID', ship.id);
-    e.dataTransfer.setData('partID', partIndex);
+function instructionsDom(container) {
+    const div = document.createElement('div');
+    div.className = 'instructions'
+    const p1 = document.createElement('p');
+    p1.innerHTML = 'drag and drop ships to place on board';
+    const p2 = document.createElement('p');
+    p2.innerHTML = 'click on unplaced ships to change orientation';
+    const p3 = document.createElement('p');
+    p3.innerHTML = 'click on placed ships to remove them from the board';
+    div.appendChild(p1);
+    div.appendChild(p2);
+    div.appendChild(p3);
+    container.appendChild(div);
 }
 
+function allShipsPlaced(ships) {
+    for (i = 0; i < ships.length; i++) {
+        if (!ships[i].placed()) { //if ship is placed
+            return false   
+        }
+    }
+    return true
+}
 
 
 module.exports = setup;

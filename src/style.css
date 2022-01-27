@@ -110,6 +110,37 @@ input[type="color"] {
     overflow: scroll;
 }
 
+.instructions {
+    background-color: var(--dark-blue);
+    color: white;
+    position: relative;
+    text-align: center;
+    font-size: 1rem;
+    z-index: 20;
+}
+
+.next {
+    position: absolute;
+    bottom: 5vh;
+    width: 100%;
+    text-align: center;
+}
+
+.continue {
+    width: 200px;
+    height: 60px;
+    font-size: 3rem;
+    margin: auto;
+    background-color: var(--dark-blue);
+    color: white;
+    border: 2px solid var(--darker-blue);
+    border-radius: 2px;
+}
+
+.instructions > p {
+    padding-top: 5px;
+}
+
 .harbor.top {
     display: block;
     position:absolute; 
