@@ -1,6 +1,10 @@
 const Player = require('./player');
 const reset = require('./resetDOM');
 
+//can't figure out a way to pass id info for mobile devices without global variables
+var mobileShipId = null;
+var mobilePartId = null;
+
 const setup = (info1, info2, computer) => {
     //create players
     const player1 = Player(info1.name.value, info1.color.value, 10);
@@ -25,7 +29,7 @@ const setup = (info1, info2, computer) => {
     gameboard.className = 'gameboard bottom';
     container2.appendChild(gameboard);
 
-    gameboardDOM(gameboard, player1); //array of gameboard cells
+    gameboardDOM(gameboard, player1, dock); //array of gameboard cells
 
     //drag and drop
    
@@ -68,8 +72,14 @@ function displayShips(container, harbor) {
                 part.dataset.index = n;
                 ship.appendChild(part);
 
+                //dekstop
                 part.addEventListener('mousedown', e => {
                     partIndex = part.dataset.index;
+                });
+
+                //mobile
+                part.addEventListener('touchstart', () => {
+                    mobilePartId = part.dataset.index;
                 });
             };
 
@@ -92,12 +102,19 @@ function displayShips(container, harbor) {
                 displayShips(container, harbor); //reload ships
             });
 
-            
+            //mobile drag
+            ship.addEventListener('touchstart', () => {
+                mobileShipId = ship.id
+            });
+
+            ship.addEventListener('touchend', () => {
+                displayShips(container, harbor); //reload ships
+            });
         };
     };
 };
 
-function gameboardDOM(container, player) {
+function gameboardDOM(container, player, container2) {
     reset(container);
     const cells = [];
     for (y = 0; y < player.getBoard().checkBoard().length; y++) {   
@@ -113,7 +130,7 @@ function gameboardDOM(container, player) {
                 cell.style.background = 'red';
             }
 
-            //drag and drop
+            //drag and drop - desktop
             cell.addEventListener('dragover', e => {
                 e.preventDefault();
             });
@@ -133,7 +150,27 @@ function gameboardDOM(container, player) {
                     const x = cell.dataset.x;
                     player.getBoard().placeShip(ship, y, x);
                 }
-                gameboardDOM(container, player); //reload board
+                gameboardDOM(container, player, container2); //reload board
+            });
+
+            //drag and drop mobile
+            cell.addEventListener('touchend', () => {
+                console.log('yo');
+                const shipID = mobileShipId;
+                const partID = mobilePartId;
+
+                const ship = player.getShips()[shipID];
+                if (ship.isHorizontal()) {
+                    const y = cell.dataset.y;
+                    const x = cell.dataset.x - partID;
+                    player.getBoard().placeShip(ship, y, x);
+                } else if (!ship.isHorizontal()) {
+                    const y = cell.dataset.y - partID;
+                    const x = cell.dataset.x;
+                    player.getBoard().placeShip(ship, y, x);
+                }
+                gameboardDOM(container, player, container2);
+                displayShips(container2, player.getShips());
             });
         };
     };

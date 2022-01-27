@@ -3,6 +3,7 @@
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+    overscroll-behavior: contain;
 }
 
 :root{
