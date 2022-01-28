@@ -57,6 +57,7 @@ function createPlayer(nameValue, colorValue) {
     const name = document.createElement('input');
     name.value = nameValue;
     name.className = 'nameInput'
+    name.maxLength = '9';
     container.appendChild(name);
 
     const wrapper = document.createElement('div');

@@ -26,7 +26,7 @@ const fleetEventListeners = (fleet, player, reset) => {
         ship.addEventListener('touchend', e => {
             const changedTouch = e.changedTouches[0];
             const cell = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
-            const currentShip = harbor[ship.id];
+            const currentShip = player.getShips()[ship.id];
             const y = parseInt(cell.dataset.y);
             const x = parseInt(cell.dataset.x);
             player.getBoard().placeShip(currentShip, y, x);
