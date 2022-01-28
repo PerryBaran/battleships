@@ -1,9 +1,9 @@
 const Player = require('./player');
 const reset = require('./DOM/resetDOM');
-const gameboardDOM = require('./DOM/gameboardDOM');
-const displayShips = require('./DOM/setupDOM/displayShipsDOM');
-const instructionsDom = require('./DOM/setupDOM/instructionsDOM');
-const continueButton = require('./DOM/setupDOM/continueDOM');
+const setupDOM = require('./DOM/setupDOM');
+const AI = require('./AI');
+const gameLoop = require('./gameLoop');
+const listeners = require('./setupListeners');
 
 const setup = (info1, info2, computer) => {
     //create players
@@ -30,19 +30,20 @@ const setup = (info1, info2, computer) => {
         gameboard.className = 'gameboard';
         container2.appendChild(gameboard);
 
-        instructionsDom(player, container1, 'top');
+        setupDOM.instructions(player, container1, 'top');
 
-        const fleet = displayShips(dock, player); //array of ship DOM elements
-        const board = gameboardDOM(gameboard, player); //array of gameboard cells 
-        const contButton = continueButton(player, container1);
+        const fleet = setupDOM.displayShips(dock, player); //array of ship DOM elements
+        const board = setupDOM.gameboard(gameboard, player); //array of gameboard cells 
+        const contButton = setupDOM.contButton(player, container1);
 
         //event listeners
-        fleetEventListeners(fleet, player, setupP1);
-        boardEventLiseners(board, player, setupP1);
+        listeners.ships(fleet, player, setupP1);
+        listeners.board(board, player, setupP1);
 
         contButton.addEventListener('click', () => {
             if (computer) {
-                //todo
+                AI.place(player2);
+                gameLoop(player1, player2, true);
             } else {
                 setupP2(player2);
             }
@@ -59,97 +60,22 @@ const setup = (info1, info2, computer) => {
         gameboard.className = 'gameboard';
         container1.appendChild(gameboard);
 
-        instructionsDom(player, container2, 'bottom');
+        setupDOM.instructions(player, container2, 'bottom');
 
-        const fleet = displayShips(dock, player); //array of ship DOM elements
-        const board = gameboardDOM(gameboard, player); //array of gameboard cells 
-        const contButton = continueButton(player, container2);
+        const fleet = setupDOM.displayShips(dock, player); //array of ship DOM elements
+        const board = setupDOM.gameboard(gameboard, player); //array of gameboard cells 
+        const contButton = setupDOM.contButton(player, container2);
 
-        fleetEventListeners(fleet, player, setupP2);
-        boardEventLiseners(board, player, setupP2);
+        listeners.ships(fleet, player, setupP2);
+        listeners.board(board, player, setupP2);
 
         contButton.addEventListener('click', () => {
-            //todo
+            gameLoop(player1, player2, false);
         });
     };
 
     setupP1(player1);
     
 };
-
-function fleetEventListeners(fleet, player, reset) { 
-    fleet.forEach(ship => {
-        //change orientation on click
-        ship.addEventListener('click', () => {
-            player.getShips()[ship.id].changeOrientation();
-            reset(player);
-        });
-
-        //desktop drag
-        let partIndex = null; //var to pass part id to data transfer and datatransfer can't be set by mousedown
-        parts = Array.from(ship.childNodes);
-        parts.forEach(part => {
-            part.addEventListener('mousedown', e => {
-                partIndex = part.dataset.index;
-            });
-        });
-        ship.addEventListener('dragstart', e => {
-            e.dataTransfer.setData('shipID', ship.id);
-            e.dataTransfer.setData('partID', partIndex);
-        });
-        ship.addEventListener('dragend', () => {
-            reset(player)
-        });
-
-        //mobile drag
-        ship.addEventListener('touchend', e => {
-            const changedTouch = e.changedTouches[0];
-            const cell = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
-            const currentShip = harbor[ship.id];
-            const y = parseInt(cell.dataset.y);
-            const x = parseInt(cell.dataset.x);
-            player.getBoard().placeShip(currentShip, y, x);
-            reset(player);
-        });
-        ship.addEventListener('touchmove', e => {
-            e.preventDefault()
-        });
-    });
-}
-
-function boardEventLiseners(board, player, reset) {
-    board.forEach(cell => {
-        //desktop drag and drop
-        cell.addEventListener('dragover', e => {
-            e.preventDefault();
-        });
-        cell.addEventListener('drop', e => {
-            e.preventDefault();
-            const shipID = e.dataTransfer.getData('shipID');
-            const partID = e.dataTransfer.getData('partID');
-
-            const ship = player.getShips()[shipID];
-            if (ship.isHorizontal()) {
-                const y = parseInt(cell.dataset.y);
-                const x = parseInt(cell.dataset.x - partID);
-                player.getBoard().placeShip(ship, y, x);
-            } else if (!ship.isHorizontal()) {
-                const y = parseInt(cell.dataset.y - partID);
-                const x = parseInt(cell.dataset.x);
-                player.getBoard().placeShip(ship, y, x);
-            }
-            reset(player);
-        });
-
-        //remove ships from board
-        cell.addEventListener('click', () => {
-            const y = parseInt(cell.dataset.y);
-            const x = parseInt(cell.dataset.x);
-            player.getBoard().removeShip(y, x);
-            reset(player);
-        });
-    });
-}
-
 
 module.exports = setup;

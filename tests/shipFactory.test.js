@@ -1,4 +1,4 @@
-const ShipFactory = require('../shipFactory');
+const ShipFactory = require('../src/shipFactory');
 
 const ships = ShipFactory([2, 4])
 test('ships of correct length created and placed in array', () => {

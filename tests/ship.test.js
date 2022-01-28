@@ -1,4 +1,4 @@
-const Ship = require('../ship')
+const Ship = require('../src/ship');
 
 const ship1 = Ship(3);
 test('get length', () => {
