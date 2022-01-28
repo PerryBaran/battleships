@@ -5,7 +5,7 @@ const Gameboard = (size) => {
     const placeShip = (battleShip, y, x) => {
         if ((battleShip.isHorizontal()) &&  //check ship orientation, horizontal
         (x + battleShip.length() <= size) && //check ship doesn't overflow border
-        (locationsFreeX(battleShip.length(), y, x, board)) &&   //check all spaces are free
+        (locationsFreeX(battleShip, y, x, board)) &&   //check all spaces are free
         (!battleShip.placed())) {  //check ship hasn't already been placed
             for (i = x; i < (x + battleShip.length()); i++) {
                 board[y][i].ship = battleShip;
@@ -13,7 +13,7 @@ const Gameboard = (size) => {
             }
         } else if ((!battleShip.isHorizontal()) && //vertical
         (y + battleShip.length() <= size) && //check ship doesn't overflow border
-        (locationsFreeY(battleShip.length(), y, x, board)) &&   //check all spaces are free
+        (locationsFreeY(battleShip, y, x, board)) &&   //check all spaces are free
         (!battleShip.placed())) {  //check ship hasn't already been placed
             for (i = y; i < (y + battleShip.length()); i++) {
                 board[i][x].ship = battleShip;
@@ -72,7 +72,11 @@ function createArray(size) {
     return outerArray;
 }
 
-function locationsFreeX(length, y, x, board) {   
+function locationsFreeX(ship, y, x, board) {  
+    if (y < 0 || x < 0) {
+        return false;
+    }
+    const length = ship.length();
     for (i = x; i < (x + length); i++) {
         if (board[y][i].ship !== null) { //if where the ship is going to be placed already contains a ship
             return false
@@ -80,7 +84,11 @@ function locationsFreeX(length, y, x, board) {
     } return true
 }
 
-function locationsFreeY(length, y, x, board) {
+function locationsFreeY(ship, y, x, board) {
+    if (y < 0 || x < 0) {
+        return false;
+    }
+    const length = ship.length();
     for (i = y; i < (y + length); i++) {
         if (board[i][x].ship !== null) {
             return false
