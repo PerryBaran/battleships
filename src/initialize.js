@@ -1,4 +1,4 @@
-const reset = require('./resetDOM');
+const reset = require('./DOM/resetDOM');
 const setup = require('./setup');
 
 const initializePage = () => {

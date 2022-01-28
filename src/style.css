@@ -104,33 +104,24 @@ input[type="color"] {
 
 /*setup screen*/
 .container {
+    border: 1px solid black;
     position: relative;
     width: 100vw;
     height: 50vh;
-    overflow: scroll;
-}
-
-.instructions {
-    background-color: var(--dark-blue);
-    color: white;
-    position: relative;
-    text-align: center;
-    font-size: 1rem;
-    z-index: 20;
 }
 
 .next {
-    position: absolute;
-    bottom: 5vh;
     width: 100%;
+    height: 100%;
     text-align: center;
 }
 
 .continue {
+    position: absolute;
+    inset: 0;
     width: 200px;
     height: 60px;
     font-size: 3rem;
-    margin: auto;
     background-color: var(--dark-blue);
     color: white;
     border: 2px solid var(--darker-blue);
@@ -141,12 +132,19 @@ input[type="color"] {
     padding-top: 5px;
 }
 
-.harbor.top {
+.harbor {
     display: block;
     position:absolute; 
-    bottom:0;
     width: 100%;
     text-align: center;
+}
+
+.harbor.top {
+    bottom: 0;
+}
+
+.harbor.bottom {
+    top: 0;
 }
 
 .ship {
@@ -163,11 +161,9 @@ input[type="color"] {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     aspect-ratio: 1/1;
-    height: 200px;
-}
-
-.gameboard.bottom {
-    margin-top: 20px;
+    height: 45vh;
+    position: absolute; 
+    inset: 0;
 }
 
 .cell {
@@ -186,4 +182,53 @@ input[type="color"] {
     border-radius: 100px;
     border: 1px solid var(--darker-blue);
     background-color: var(--dark-blue);
+}
+
+.infoWrapper {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.infoWrapper.top {
+    top: 0;
+}
+
+.infoWrapper.bottom {
+    bottom: 0;
+}
+
+.instructions {
+    position: relative;
+}
+
+.instructions > p {
+    display: inline-block;
+    font-size: 3rem;
+}
+
+.instructions > button {
+    position: absolute;
+    top: 18px;
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    aspect-ratio: 1;
+    height: 35px;
+    border-radius: 100px;
+    color: white;
+    background: var(--dark-blue);
+    border: none;
+    margin-left: 20px;
+}
+
+.info {
+    background: var(--dark-blue);
+    color: white;
+    font-size: 1.3rem;
+}
+
+.info > p {
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
