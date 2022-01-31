@@ -236,3 +236,19 @@ input[type="color"] {
     margin-top: 3px;
     margin-bottom: 3px;
 }
+
+.winLose {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 4rem;
+    font-weight: bold;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    align-items:center;
+    justify-content:center;
+}
+
+.winLose.top {
+    transform: rotate(180deg);
+}
