@@ -51,7 +51,12 @@ const restart = () => {
     const button = document.createElement('button');
     button.innerHTML = 'RESET';
     button.className = 'restart';
+
+    content.appendChild(button);
+
+    return button;
 }
 
 exports.board = gameboard;
 exports.winner = winner;
+exports.restart = restart;

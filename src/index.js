@@ -1,7 +1,7 @@
 import './style.css';
 const initializePage = require('./initialize');
 
-initializePage();
+initializePage('Player 1', '#FF0000', 'Player 2', '#0000FF');
 
 
 

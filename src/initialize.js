@@ -1,7 +1,7 @@
 const reset = require('./DOM/resetDOM');
 const setup = require('./setup');
 
-const initializePage = () => {
+const initializePage = (player1Name, player1Colour, player2Name, player2Colour) => {
     reset(content);
 
     //create top bar
@@ -13,8 +13,8 @@ const initializePage = () => {
     content.appendChild(topBar);
 
     //create players
-    const info1 = createPlayer('Player 1', '#FF0000');
-    const info2 = createPlayer('Player 2', '#0000FF');
+    const info1 = createPlayer(player1Name, player1Colour);
+    const info2 = createPlayer(player2Name, player2Colour);
     
     //player 2 is computer option
     let computer = true;

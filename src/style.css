@@ -252,3 +252,19 @@ input[type="color"] {
 .winLose.top {
     transform: rotate(180deg);
 }
+
+.restart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    width: 200px;
+    height: 60px;
+    font-size: 3rem;
+    margin: auto;
+    background-color: var(--dark-blue);
+    color: white;
+    border: 2px solid var(--darker-blue);
+    border-radius: 2px;
+}

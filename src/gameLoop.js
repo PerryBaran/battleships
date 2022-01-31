@@ -2,33 +2,37 @@ const reset = require('./DOM/resetDOM');
 const DOM = require('./DOM/gameLoopDOM');
 const AI = require('./AI');
 
-
 const gameLoop = (player1, player2, computer) => {
 
     reset(content);
     const containerTop = document.createElement('div');
     containerTop.className = 'container';
     content.appendChild(containerTop);
-    const gameboardP2 = document.createElement('div');     
-    gameboardP2.className = 'gameboard';
-    containerTop.appendChild(gameboardP2);
 
     const containerBottom = document.createElement('div');
     containerBottom.className = 'container';
     content.appendChild(containerBottom);
-    const gameboardP1 = document.createElement('div');     
-    gameboardP1.className = 'gameboard';
-    containerBottom.appendChild(gameboardP1);
+    
 
     function loop(player, opponent, playerContainer, opponentContainer) {
         reset(playerContainer);
         reset(opponentContainer);
 
-        //display boards
-        DOM.board(player, playerContainer);                     //only need to display players board
-        const opponentBoard = DOM.board(opponent, opponentContainer);   //need to return values of opponents board for event listeners
+        const playerBoardContainer = document.createElement('div');     
+        playerBoardContainer.className = 'gameboard';
+        playerContainer.appendChild(playerBoardContainer);
 
-        //event listeners
+        const opponentBoardContainer = document.createElement('div');     
+        opponentBoardContainer.className = 'gameboard';
+        opponentContainer.appendChild(opponentBoardContainer);
+
+        
+
+        //display boards
+        DOM.board(player, playerBoardContainer);                     //only need to display players board
+        const opponentBoard = DOM.board(opponent, opponentBoardContainer);   //need to return values of opponents board for event listeners
+
+        //game conditions + listeners
         if (player.getBoard().checkLose()) {    //check if player has lost
             const winner = DOM.winner(player, opponent, playerContainer, opponentContainer);
             if (opponent === player2) {
@@ -38,11 +42,21 @@ const gameLoop = (player1, player2, computer) => {
                 winner.win.className = 'winLose'
                 winner.lose.className = 'winLose top'
             }
+
+            const restart = DOM.restart();
+            restart.addEventListener('click', () => {
+                const initializePage = require('./initialize'); //don't know why but have to import this here for instead with the other imports for this to work
+                initializePage(player1.getName(), player1.getColour(), player2.getName(), player2.getColour());
+            });
             
         } else if (computer && player === player2) {    //if player 2 is a computer and it's there turn
-            AI.play(opponent);
-            loop(opponent, player, opponentContainer, playerContainer);
+            opponentBoardContainer.style.boxShadow = '0 0 10px ' + player.getColour();
+            setTimeout(() => {
+                AI.play(opponent);
+                loop(opponent, player, opponentContainer, playerContainer);
+            }, 800);
         } else { //players play
+            opponentBoardContainer.style.boxShadow = '0 0 10px ' + player.getColour();
             opponentBoard.forEach(cell => {
                 cell.addEventListener('click', () => {
                     const board = opponent.getBoard()
@@ -57,7 +71,9 @@ const gameLoop = (player1, player2, computer) => {
             });
         }
     };
-    loop(player1, player2, gameboardP1, gameboardP2);
+    loop(player1, player2, containerBottom, containerTop);
 }
+
+
 
 module.exports = gameLoop;
