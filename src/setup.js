@@ -26,7 +26,8 @@ const setup = (info1, info2, computer) => {
         const dock = document.createElement('dock');
         dock.className = 'harbor top';
         container1.appendChild(dock);
-        const gameboard = document.createElement('div');     
+        const gameboard = document.createElement('div');    
+        gameboard.style.border = '2px solid ' + player.getColour(); 
         gameboard.className = 'gameboard';
         container2.appendChild(gameboard);
 

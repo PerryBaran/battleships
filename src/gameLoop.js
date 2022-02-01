@@ -1,6 +1,7 @@
 const reset = require('./DOM/resetDOM');
 const DOM = require('./DOM/gameLoopDOM');
 const AI = require('./AI');
+const { gameboard } = require('./DOM/setupDOM');
 
 const gameLoop = (player1, player2, computer) => {
 
@@ -13,35 +14,26 @@ const gameLoop = (player1, player2, computer) => {
     containerBottom.className = 'container';
     content.appendChild(containerBottom);
 
-    const player1Name = document.createElement('p');
-    player1Name.innerHTML = player1.getName();
-    player1Name.style.color = player1.getColour();
-    player1Name.className = 'name p1';
-    content.appendChild(player1Name);
+    const gameboardP1 = document.createElement('div');     
+    gameboardP1.className = 'gameboard';
+    gameboardP1.style.border = '2px solid ' + player1.getColour();
+    containerBottom.appendChild(gameboardP1);
 
-    const player2Name = document.createElement('p');
-    player2Name.innerHTML = player2.getName();
-    player2Name.style.color = player2.getColour();
-    player2Name.className = 'name p2';
-    content.appendChild(player2Name);
+    const gameboardP2 = document.createElement('div');     
+    gameboardP2.className = 'gameboard';
+    gameboardP2.style.border = '2px solid ' + player2.getColour();
+    containerTop.appendChild(gameboardP2);
+
 
     function loop(player, opponent, playerContainer, opponentContainer) {
         reset(playerContainer);
         reset(opponentContainer);
-
-        const playerBoardContainer = document.createElement('div');     
-        playerBoardContainer.className = 'gameboard';
-        playerContainer.appendChild(playerBoardContainer);
-
-        const opponentBoardContainer = document.createElement('div');     
-        opponentBoardContainer.className = 'gameboard';
-        opponentContainer.appendChild(opponentBoardContainer);
-
-        
+        playerContainer.style.boxShadow = null;
+        opponentContainer.style.boxShadow = null;
 
         //display boards
-        DOM.board(player, playerBoardContainer);                     //only need to display players board
-        const opponentBoard = DOM.board(opponent, opponentBoardContainer);   //need to return values of opponents board for event listeners
+        DOM.board(player, playerContainer);                     //only need to display players board
+        const opponentBoard = DOM.board(opponent, opponentContainer);   //need to return values of opponents board for event listeners
 
         //game conditions + listeners
         if (player.getBoard().checkLose()) {    //check if player has lost
@@ -61,13 +53,13 @@ const gameLoop = (player1, player2, computer) => {
             });
             
         } else if (computer && player === player2) {    //if player 2 is a computer and it's there turn
-            opponentBoardContainer.style.boxShadow = '0 0 10px ' + player.getColour();
+            opponentContainer.style.boxShadow = boxShadow + player.getColour();
             setTimeout(() => {
                 AI.play(opponent);
                 loop(opponent, player, opponentContainer, playerContainer);
             }, 800);
         } else { //players play
-            opponentBoardContainer.style.boxShadow = '0 0 10px ' + player.getColour();
+            opponentContainer.style.boxShadow = boxShadow + player.getColour();
             opponentBoard.forEach(cell => {
                 cell.addEventListener('click', () => {
                     const board = opponent.getBoard()
@@ -82,9 +74,10 @@ const gameLoop = (player1, player2, computer) => {
             });
         }
     };
-    loop(player1, player2, containerBottom, containerTop);
+    loop(player1, player2, gameboardP1, gameboardP2);
 }
 
+const boxShadow = '0 0 15px '
 
 
 module.exports = gameLoop;

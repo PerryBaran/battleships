@@ -172,8 +172,7 @@ input[type="color"] {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     aspect-ratio: 1/1;
-    max-height: 45vh;
-    max-width: 80%;
+    height: 45vh;
     position: absolute;
     inset: 0;
     border: 1px solid rgb(192, 192, 192);
@@ -285,18 +284,16 @@ input[type="color"] {
 }
 
 .name {
-    position: absolute;
     font-size: 2rem;
+    position: absolute;
 }
 
 .name.p1 {
-    transform: rotate(270deg);
-    bottom: 60px;
-    left: -40px;
+    left: 10%;
 }
 
 .name.p2 {
-    transform: rotate(90deg);
-    top: 60px;
-    right: -40px;
+    transform: rotate(180deg);
+    bottom: 0;
+    right: 10%;
 }
