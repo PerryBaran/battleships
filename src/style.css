@@ -104,7 +104,6 @@ input[type="color"] {
 
 /*setup screen*/
 .container {
-    border: 1px solid black;
     position: relative;
     width: 100vw;
     height: 50vh;
@@ -134,7 +133,7 @@ input[type="color"] {
 
 .harbor {
     display: block;
-    position:absolute; 
+    position: absolute; 
     width: 100%;
     text-align: center;
 }
@@ -149,6 +148,7 @@ input[type="color"] {
 
 .ship {
     margin: 10px;
+    z-index: 25;
 }
 
 .shipPart {
@@ -161,7 +161,8 @@ input[type="color"] {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     aspect-ratio: 1/1;
-    height: 45vh;
+    max-height: 45vh;
+    max-width: 80%;
     position: absolute;
     inset: 0;
     border: 1px solid rgb(192, 192, 192);
@@ -170,7 +171,7 @@ input[type="color"] {
 .cell {
     background-color: white;
     aspect-ratio: 1/1;
-    width: calc(45vh / 10);
+    width: 100%;
     border: 1px solid rgb(192, 192, 192);
 }
 
@@ -239,14 +240,16 @@ input[type="color"] {
 
 .winLose {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: 4rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size: 3rem;
     font-weight: bold;
     position: absolute;
     inset: 0;
     width: 100%;
+    text-align: center;
     align-items:center;
     justify-content:center;
+    z-index: 10;
 }
 
 .winLose.top {
@@ -267,4 +270,22 @@ input[type="color"] {
     color: white;
     border: 2px solid var(--darker-blue);
     border-radius: 2px;
+    z-index: 20;
+}
+
+.name {
+    position: absolute;
+    font-size: 2rem;
+}
+
+.name.p1 {
+    transform: rotate(270deg);
+    bottom: 60px;
+    left: -40px;
+}
+
+.name.p2 {
+    transform: rotate(90deg);
+    top: 60px;
+    right: -40px;
 }

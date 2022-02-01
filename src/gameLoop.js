@@ -12,7 +12,18 @@ const gameLoop = (player1, player2, computer) => {
     const containerBottom = document.createElement('div');
     containerBottom.className = 'container';
     content.appendChild(containerBottom);
-    
+
+    const player1Name = document.createElement('p');
+    player1Name.innerHTML = player1.getName();
+    player1Name.style.color = player1.getColour();
+    player1Name.className = 'name p1';
+    content.appendChild(player1Name);
+
+    const player2Name = document.createElement('p');
+    player2Name.innerHTML = player2.getName();
+    player2Name.style.color = player2.getColour();
+    player2Name.className = 'name p2';
+    content.appendChild(player2Name);
 
     function loop(player, opponent, playerContainer, opponentContainer) {
         reset(playerContainer);
@@ -34,7 +45,7 @@ const gameLoop = (player1, player2, computer) => {
 
         //game conditions + listeners
         if (player.getBoard().checkLose()) {    //check if player has lost
-            const winner = DOM.winner(player, opponent, playerContainer, opponentContainer);
+            const winner = DOM.winner(opponent, playerContainer, opponentContainer);
             if (opponent === player2) {
                 winner.win.className = 'winLose top'
                 winner.lose.className = 'winLose'

@@ -31,15 +31,15 @@ const gameboard = (player, boardContainer) => {
     return cellArray; //return array of cell DOMs for event listeners
 };
 
-const winner = (player, opponent, playerContainer, opponentContainer) => {
+const winner = (opponent, playerContainer, opponentContainer) => {
     //opponent always wins as winner is checked at beginning of players turn
     const win = document.createElement('p');
-    win.innerHTML = 'YOU WIN';
+    win.innerHTML = opponent.getName() + ' wins';
     win.style.color = opponent.getColour();
 
     const lose = document.createElement('p');
-    lose.innerHTML = 'YOU LOSE';
-    lose.style.color = player.getColour();
+    lose.innerHTML = opponent.getName() + ' wins';
+    lose.style.color = opponent.getColour();
 
     opponentContainer.appendChild(win);
     playerContainer.appendChild(lose);

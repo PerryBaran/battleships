@@ -23,7 +23,18 @@ const fleetEventListeners = (fleet, player, reset) => {
         });
 
         //mobile drag
+        ship.addEventListener('touchmove', e => {
+            e.preventDefault()
+            const touchLocation = e.targetTouches[0];
+            ship.style.position = 'fixed';
+            ship.style.left = touchLocation.pageX - 25 + 'px';
+            ship.style.top = touchLocation.pageY - 25 + 'px';
+        });
+
         ship.addEventListener('touchend', e => {
+            ship.style.position = 'static';
+            ship.style.left = null;
+            ship.style.top =  null;
             const changedTouch = e.changedTouches[0];
             const cell = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
             const currentShip = player.getShips()[ship.id];
@@ -32,9 +43,7 @@ const fleetEventListeners = (fleet, player, reset) => {
             player.getBoard().placeShip(currentShip, y, x);
             reset(player);
         });
-        ship.addEventListener('touchmove', e => {
-            e.preventDefault()
-        });
+        
     });
 }
 
