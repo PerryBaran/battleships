@@ -3,13 +3,19 @@
     margin: auto;
     font-family: Arial, Helvetica, sans-serif;
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
-    overscroll-behavior: contain;
+    overflow: hidden;
 }
 
 :root{
     --dark-blue: rgb(1, 60, 128);
     --darker-blue: rgb(1, 28, 59);
 }
+
+button {
+    cursor:pointer;
+}
+
+
 
 /*initial screen*/
 #topbar {
@@ -27,9 +33,9 @@ h1 {
 
 #bottombar {
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     background: var(--dark-blue);
-    height: 20px;
+    height: 120px;
     width: 100%;
     padding-top: 2px;
     color: white;
@@ -72,6 +78,7 @@ input[type="color"] {
     height: 50px;
     overflow: hidden;
     opacity: 0;
+    cursor: pointer;
 }
 
 .computerInput {
@@ -96,10 +103,6 @@ input[type="color"] {
     justify-content: center;
     align-items: center;
     margin-top: 10%;
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    right: 0;
 }
 
 #start > button {
@@ -110,7 +113,7 @@ input[type="color"] {
     background-color: var(--dark-blue);
     color: white;
     border: 2px solid var(--darker-blue);
-    border-radius: 2px;
+    border-radius: 10px;
 }
 
 /*setup screen*/
@@ -135,11 +138,7 @@ input[type="color"] {
     background-color: var(--dark-blue);
     color: white;
     border: 2px solid var(--darker-blue);
-    border-radius: 2px;
-}
-
-.instructions > p {
-    padding-top: 5px;
+    border-radius: 10px;
 }
 
 .harbor {
@@ -163,26 +162,9 @@ input[type="color"] {
 }
 
 .shipPart {
-    border: 1px solid rgb(17, 17, 17);
     aspect-ratio: 1/1;
     height: calc(45vh / 10);
-}
-
-.gameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    aspect-ratio: 1/1;
-    height: 45vh;
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgb(192, 192, 192);
-}
-
-.cell {
-    background-color: white;
-    aspect-ratio: 1/1;
-    width: 100%;
-    border: 1px solid rgb(192, 192, 192);
+    cursor: pointer;
 }
 
 .rotate {
@@ -219,6 +201,7 @@ input[type="color"] {
     font-size: 3rem;
     width: calc(100% - 40px);
     margin-right:40px;
+    padding-top: 5px;
 }
 
 .instructions > button {
@@ -235,6 +218,7 @@ input[type="color"] {
     background: var(--dark-blue);
     border: none;
     margin-left: 20px;
+    cursor: help;
 }
 
 .info {
@@ -248,6 +232,26 @@ input[type="color"] {
     margin-bottom: 3px;
 }
 
+/*gameboard*/
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    aspect-ratio: 1/1;
+    height: 45vh;
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(192, 192, 192);
+}
+
+.cell {
+    background-color: white;
+    aspect-ratio: 1/1;
+    width: 100%;
+    border: 1px solid rgb(192, 192, 192);
+    cursor: pointer;
+}
+
+/*end screen*/
 .winLose {
     display: flex;
     background-color: rgba(255, 255, 255, 0.6);
@@ -281,19 +285,4 @@ input[type="color"] {
     border: 2px solid var(--darker-blue);
     border-radius: 2px;
     z-index: 20;
-}
-
-.name {
-    font-size: 2rem;
-    position: absolute;
-}
-
-.name.p1 {
-    left: 10%;
-}
-
-.name.p2 {
-    transform: rotate(180deg);
-    bottom: 0;
-    right: 10%;
 }

@@ -1,7 +1,6 @@
 const reset = require('./DOM/resetDOM');
 const DOM = require('./DOM/gameLoopDOM');
 const AI = require('./AI');
-const { gameboard } = require('./DOM/setupDOM');
 
 const gameLoop = (player1, player2, computer) => {
 
@@ -34,17 +33,26 @@ const gameLoop = (player1, player2, computer) => {
         //display boards
         DOM.board(player, playerContainer);                     //only need to display players board
         const opponentBoard = DOM.board(opponent, opponentContainer);   //need to return values of opponents board for event listeners
-
+        
         //game conditions + listeners
         if (player.getBoard().checkLose()) {    //check if player has lost
             const winner = DOM.winner(opponent, playerContainer, opponentContainer);
             if (opponent === player2) {
-                winner.win.className = 'winLose top'
+                if (computer) { //looks nicer when playing vs computer
+                    winner.lose.innerHTML = '';
+                    winner.win.className = 'winLose'
+                } else {
+                    winner.win.className = 'winLose top'
+                }
                 winner.lose.className = 'winLose'
+                
             } else {
                 winner.win.className = 'winLose'
                 winner.lose.className = 'winLose top'
-            }
+                if (computer) {
+                    winner.lose.innerHTML = '';
+                };
+            };
 
             const restart = DOM.restart();
             restart.addEventListener('click', () => {
@@ -59,6 +67,7 @@ const gameLoop = (player1, player2, computer) => {
                 loop(opponent, player, opponentContainer, playerContainer);
             }, AI.timeout(500, 1500));
         } else { //players play
+            DOM.cellHighlight(player, opponentBoard); //highlights position mouse is over
             opponentContainer.style.boxShadow = boxShadow + player.getColour();
             opponentBoard.forEach(cell => {
                 cell.addEventListener('click', () => {
@@ -72,7 +81,10 @@ const gameLoop = (player1, player2, computer) => {
                     }
                 });
             });
-        }
+
+        
+
+        };
     };
     loop(player1, player2, gameboardP1, gameboardP2);
 }

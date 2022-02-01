@@ -57,6 +57,20 @@ const restart = () => {
     return button;
 }
 
+const cellHighlight = (player, board) => {
+    board.forEach(cell => {
+        cell.addEventListener('mouseenter', () => {
+            cell.style.boxShadow = '0 0 15px ' + player.getColour();
+            cell.style.zIndex = '5';
+        });
+        cell.addEventListener('mouseout', () => {
+            cell.style.boxShadow = null;
+            cell.style.zIndex = '2';
+        });
+    });
+};
+
 exports.board = gameboard;
 exports.winner = winner;
 exports.restart = restart;
+exports.cellHighlight = cellHighlight;

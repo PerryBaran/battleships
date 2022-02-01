@@ -57,6 +57,7 @@ const displayShips = (shipContainer, player) => {
             ship.className = 'ship';
             ship.id = i;
             ship.draggable = true;
+            ship.style.border = '1px solid '+ player.getColour();
             
             shipContainer.appendChild(ship);
 
@@ -70,6 +71,7 @@ const displayShips = (shipContainer, player) => {
                 const part = document.createElement('div');
                 part.className = 'shipPart';
                 part.dataset.index = n;
+                part.style.border = '1px solid '+ player.getColour();
                 ship.appendChild(part);
             };
 

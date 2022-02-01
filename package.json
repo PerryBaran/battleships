@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
-    "eslint": "^8.7.0"
+    "eslint": "^8.7.0",
+    "util": "^0.12.4"
   }
 }
