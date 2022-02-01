@@ -57,7 +57,7 @@ const gameLoop = (player1, player2, computer) => {
             setTimeout(() => {
                 AI.play(opponent);
                 loop(opponent, player, opponentContainer, playerContainer);
-            }, 800);
+            }, AI.timeout(500, 1500));
         } else { //players play
             opponentContainer.style.boxShadow = boxShadow + player.getColour();
             opponentBoard.forEach(cell => {
@@ -78,6 +78,7 @@ const gameLoop = (player1, player2, computer) => {
 }
 
 const boxShadow = '0 0 15px '
+
 
 
 module.exports = gameLoop;

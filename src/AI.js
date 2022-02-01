@@ -44,8 +44,12 @@ const allShipsPlaced = (ships) => {
     return true
 };
 
+const randomTimeout = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
 exports.play = computerPlay;
 exports.place = computerPlace;
 exports.allShipsPlaced = allShipsPlaced
+exports.timeout = randomTimeout;
