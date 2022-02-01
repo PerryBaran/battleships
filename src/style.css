@@ -25,6 +25,17 @@ h1 {
     font-size: 3rem;
 }
 
+#bottombar {
+    position: absolute;
+    bottom: 0;
+    background: var(--dark-blue);
+    height: 20px;
+    width: 100%;
+    padding-top: 2px;
+    color: white;
+    text-align: center;
+}
+
 .player {
     border: 2px solid var(--dark-blue);
     border-radius: 2px;
@@ -86,7 +97,7 @@ input[type="color"] {
     align-items: center;
     margin-top: 10%;
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     left: 0;
     right: 0;
 }

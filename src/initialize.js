@@ -12,6 +12,12 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour) 
     topBar.appendChild(header);
     content.appendChild(topBar);
 
+    const bottomBar = document.createElement('p');
+    bottomBar.id = 'bottombar';
+    bottomBar.innerHTML = 'Created by Perry Baran';
+    content.appendChild(bottomBar);
+    
+
     //create players
     const info1 = createPlayer(player1Name, player1Colour);
     const info2 = createPlayer(player2Name, player2Colour);
