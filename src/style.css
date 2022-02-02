@@ -116,6 +116,22 @@ input[type="color"] {
     border-radius: 10px;
 }
 
+.swap {
+    font-size: 2rem;
+    background-color: var(--dark-blue);
+    color: white;
+    border: 2px solid var(--darker-blue);
+    text-align: center;
+}
+
+.swap.computer {
+    width: 250px;
+}
+
+.swap.hard {
+    width: calc(100% - 250px)
+}
+
 /*setup screen*/
 .container {
     position: relative;
@@ -231,6 +247,8 @@ input[type="color"] {
     margin-top: 3px;
     margin-bottom: 3px;
 }
+
+
 
 /*gameboard*/
 .gameboard {

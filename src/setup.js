@@ -5,10 +5,16 @@ const AI = require('./AI');
 const gameLoop = require('./gameLoop');
 const listeners = require('./setupListeners');
 
-const setup = (info1, info2, computer) => {
+const setup = (info1, info2, computer, hard) => {
     //create players
     const player1 = Player(info1.name.value, info1.color.value, 10);
     const player2 = Player(info2.name.value, info2.color.value, 10);
+    if (computer) {
+        player2.computerTrue();
+        if (hard) {
+            player2.hardTrue();
+        }
+    }
 
     //DOM
     reset(content);
@@ -42,9 +48,9 @@ const setup = (info1, info2, computer) => {
         listeners.board(board, player, setupP1);
 
         contButton.addEventListener('click', () => {
-            if (computer) {
+            if (player2.isComputer()) {
                 AI.place(player2);
-                gameLoop(player1, player2, true);
+                gameLoop(player1, player2);
             } else {
                 setupP2(player2);
             }
@@ -71,7 +77,7 @@ const setup = (info1, info2, computer) => {
         listeners.board(board, player, setupP2);
 
         contButton.addEventListener('click', () => {
-            gameLoop(player1, player2, false);
+            gameLoop(player1, player2);
         });
     };
 

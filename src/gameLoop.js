@@ -2,7 +2,7 @@ const reset = require('./DOM/resetDOM');
 const DOM = require('./DOM/gameLoopDOM');
 const AI = require('./AI');
 
-const gameLoop = (player1, player2, computer) => {
+const gameLoop = (player1, player2) => {
 
     reset(content);
     const containerTop = document.createElement('div');
@@ -38,7 +38,7 @@ const gameLoop = (player1, player2, computer) => {
         if (player.getBoard().checkLose()) {    //check if player has lost
             const winner = DOM.winner(opponent, playerContainer, opponentContainer);
             if (opponent === player2) {
-                if (computer) { //looks nicer when playing vs computer
+                if (player2.isComputer()) { //looks nicer when playing vs computer
                     winner.lose.innerHTML = '';
                     winner.win.className = 'winLose'
                 } else {
@@ -49,7 +49,7 @@ const gameLoop = (player1, player2, computer) => {
             } else {
                 winner.win.className = 'winLose'
                 winner.lose.className = 'winLose top'
-                if (computer) {
+                if (player2.isComputer()) {
                     winner.lose.innerHTML = '';
                 };
             };
@@ -57,15 +57,22 @@ const gameLoop = (player1, player2, computer) => {
             const restart = DOM.restart();
             restart.addEventListener('click', () => {
                 const initializePage = require('./initialize'); //don't know why but have to import this here for instead with the other imports for this to work
-                initializePage(player1.getName(), player1.getColour(), player2.getName(), player2.getColour());
+                initializePage(player1.getName(), player1.getColour(), player2.getName(), player2.getColour(), player2.isComputer(), player2.isHard());
             });
             
-        } else if (computer && player === player2) {    //if player 2 is a computer and it's there turn
+        } else if (player.isComputer()) {    //if player 2 is a computer and it's there turn
             opponentContainer.style.boxShadow = boxShadow + player.getColour();
-            setTimeout(() => {
+            if (player.isHard()) {
+                setTimeout(() => {
+                AI.hardPlay(opponent);
+                loop(opponent, player, opponentContainer, playerContainer);
+                }, AI.timeout(500, 1500));
+            } else {
+                setTimeout(() => {
                 AI.play(opponent);
                 loop(opponent, player, opponentContainer, playerContainer);
-            }, AI.timeout(500, 1500));
+                }, AI.timeout(500, 1500));  
+            }
         } else { //players play
             DOM.cellHighlight(player, opponentBoard); //highlights position mouse is over
             opponentContainer.style.boxShadow = boxShadow + player.getColour();

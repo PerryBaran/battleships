@@ -1,7 +1,7 @@
 const reset = require('./DOM/resetDOM');
 const setup = require('./setup');
 
-const initializePage = (player1Name, player1Colour, player2Name, player2Colour) => {
+const initializePage = (player1Name, player1Colour, player2Name, player2Colour, p2Computer, p2Hard) => {
     reset(content);
 
     //create top bar
@@ -17,30 +17,69 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour) 
     bottomBar.innerHTML = 'Created by Perry Baran';
     content.appendChild(bottomBar);
     
+    const container1 = document.createElement('div');
+    container1.className = 'player'
+    content.appendChild(container1);
+
+    const container2 = document.createElement('div');
+    container2.className = 'player'
+    content.appendChild(container2);
 
     //create players
-    const info1 = createPlayer(player1Name, player1Colour);
-    const info2 = createPlayer(player2Name, player2Colour);
-    
-    //player 2 is computer option
-    let computer = true;
+    const info1 = createPlayer(player1Name, player1Colour, container1);
+    const info2 = createPlayer(player2Name, player2Colour, container2);
 
-    const container = document.createElement('div');
-    container.className = "computerInput";
-    const option = document.createElement('button');
-    option.innerHTML = 'player vs computer';
-    container.appendChild(option);
-    content.appendChild(container);
+    //p2 hard
+    let computer = p2Computer;
+    let hard = p2Hard;
+        
+    const computerButton = document.createElement('button');
+    computerButton.className = 'swap computer'
+    if (computer) {
+        computerButton.innerHTML = 'computer';
+    } else {
+        computerButton.innerHTML = 'player';
+    }
+    container2.appendChild(computerButton);
 
-    option.onclick = () => {
+    const hardButton = document.createElement('button');
+    hardButton.className = 'swap hard';
+    if (hard) {
+        hardButton.innerHTML = 'hard';
+    } else {
+        hardButton.innerHTML = 'easy';
+    }
+    if (!computer) {
+        hardButton.style.opacity = 0.5;
+        hardButton.style.cursor = 'default';
+    }
+    container2.appendChild(hardButton);
+
+    computerButton.addEventListener('click', () => {
         if (computer) {
             computer = false;
-            option.innerHTML = 'player vs player'
+            computerButton.innerHTML = 'player';
+            hardButton.style.opacity = 0.5;
+            hardButton.style.cursor = 'default';
         } else {
             computer = true;
-            option.innerHTML = 'player vs computer';
+            computerButton.innerHTML = 'computer';
+            hardButton.style.opacity = 1;
+            hardButton.style.cursor = 'pointer';
         }
-    }
+    });
+
+    hardButton.addEventListener('click', () => {
+        if (computer) {
+            if (hard) {
+                hard = false;
+                hardButton.innerHTML = 'easy'
+            } else {
+                hard = true;
+                hardButton.innerHTML = 'hard'
+            }  
+        }  
+    });
    
     //start button
     const startWrapper = document.createElement('div');
@@ -51,15 +90,11 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour) 
     content.appendChild(startWrapper);
 
     start.addEventListener('click', () => {
-        setup(info1, info2, computer);
+        setup(info1, info2, computer, hard);
     })
 }
 
-function createPlayer(nameValue, colorValue) {
-    const container = document.createElement('div');
-    container.className = 'player'
-    content.appendChild(container);
-
+function createPlayer(nameValue, colorValue, container) {
     const name = document.createElement('input');
     name.value = nameValue;
     name.className = 'nameInput'
@@ -83,7 +118,6 @@ function createPlayer(nameValue, colorValue) {
     wrapper.appendChild(color);
     container.appendChild(wrapper);
 
-    
     return {name: name, color: color}
 }
     

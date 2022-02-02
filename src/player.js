@@ -10,7 +10,17 @@ const Player = (nameInput, colourInput, gameBoardSize) => {
     const getName = () => name;
     const colour = colourInput;
     const getColour = () => colour;
-    return {getBoard, getName, getColour, getShips}
+
+    var computer = false;
+    var hard = false;
+    const isComputer = () => computer;
+    const isHard = () => hard;
+    const computerFalse = () => computer = false;
+    const computerTrue = () => computer = true;
+    const hardFalse = () => hard = false;
+    const hardTrue = () => hard = true;
+
+    return {getBoard, getName, getColour, getShips, isComputer, isHard, computerFalse, computerTrue, hardFalse, hardTrue}
 }
 
 module.exports = Player;
