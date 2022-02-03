@@ -282,7 +282,7 @@ input[type="color"] {
 .gameInfo {
     position: absolute;
     bottom: -17.5px;
-    left: calc(50vw - 40px);
+    left: calc(50vw - 38px);
     display: inline-block;
     font-size: 1.8rem;
     font-weight: bold;
@@ -316,7 +316,7 @@ input[type="color"] {
 .background {
     position: absolute;
     inset: 0;
-    height: 100vh;
+    height: 150vh;
     width: 100vw;
     background: rgba(0, 0, 0, 0.5);
     cursor: pointer;
