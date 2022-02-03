@@ -47,10 +47,11 @@ const winner = (opponent, playerContainer, opponentContainer) => {
     return {win: win, lose: lose};
 };
 
-const restart = () => {
+const restart = (info) => {
     const button = document.createElement('button');
     button.innerHTML = 'RESET';
     button.className = 'restart';
+    info.style.display = 'none';
 
     content.appendChild(button);
 
@@ -107,6 +108,7 @@ const moreInfo = (container, player1, player2) => {
         background.style.display = 'none';
     });
 
+    return button;
 }
 
 exports.board = gameboard;

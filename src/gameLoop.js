@@ -13,7 +13,7 @@ const gameLoop = (player1, player2) => {
     containerBottom.className = 'container';
     content.appendChild(containerBottom);
 
-    DOM.info(containerTop, player1, player2);
+    const info = DOM.info(containerTop, player1, player2);
 
     const gameboardP1 = document.createElement('div');     
     gameboardP1.className = 'gameboard';
@@ -56,7 +56,7 @@ const gameLoop = (player1, player2) => {
                 };
             };
 
-            const restart = DOM.restart();
+            const restart = DOM.restart(info);
             restart.addEventListener('click', () => {
                 const initializePage = require('./initialize'); //don't know why but have to import this here for instead with the other imports for this to work
                 initializePage(player1.getName(), player1.getColour(), player2.getName(), player2.getColour(), player2.isComputer(), player2.isHard());
