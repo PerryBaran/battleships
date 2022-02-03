@@ -98,7 +98,7 @@ const gameLoop = (player1, player2) => {
     loop(player1, player2, gameboardP1, gameboardP2);
 }
 
-const boxShadow = '0 0 15px '
+const boxShadow = '0 0 30px '
 
 
 

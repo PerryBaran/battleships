@@ -38,7 +38,7 @@ h1 {
 }
 
 #bottombar {
-    position: absolute;
+    position: fixed;
     bottom: -100px;
     background: var(--dark-blue);
     height: 120px;
@@ -271,7 +271,7 @@ input[type="color"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     inset: 0;
     width: 200px;
     height: 60px;
