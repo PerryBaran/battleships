@@ -39,9 +39,8 @@ h1 {
 
 #bottombar {
     position: fixed;
-    bottom: -100px;
+    bottom: 0;
     background: var(--dark-blue);
-    height: 120px;
     width: 100%;
     padding-top: 2px;
     color: white;
