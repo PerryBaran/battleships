@@ -63,7 +63,8 @@ const setup = (info1, info2, computer, hard) => {
         const dock = document.createElement('dock');
         dock.className = 'harbor bottom';
         container2.appendChild(dock);
-        const gameboard = document.createElement('div');     
+        const gameboard = document.createElement('div');   
+        gameboard.style.border = '2px solid ' + player.getColour();  
         gameboard.className = 'gameboard';
         container1.appendChild(gameboard);
 

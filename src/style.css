@@ -218,9 +218,10 @@ input[type="color"] {
 }
 
 .info {
-    background: white;
-    color: var(--dark-blue);
+    background: var(--dark-blue);
+    color: white;
     font-size: 1rem;
+    font-weight: bold;
 }
 
 .info > p {
@@ -304,6 +305,7 @@ input[type="color"] {
     z-index: 12;
     height: fit-content;
     margin: auto;
+    font-weight: bold;
 }
 
 .moreGameInfo > p {
@@ -318,7 +320,7 @@ input[type="color"] {
     inset: 0;
     height: 150vh;
     width: 100vw;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(1, 60, 128, 0.5);
     cursor: pointer;
     z-index: 11;
 }
