@@ -218,8 +218,8 @@ input[type="color"] {
 }
 
 .info {
-    background: var(--dark-blue);
-    color: white;
+    background: white;
+    color: var(--dark-blue);
     font-size: 1rem;
 }
 
@@ -297,8 +297,8 @@ input[type="color"] {
 .moreGameInfo {
     position: absolute;
     inset: 0;
-    background: var(--dark-blue);
-    color: white;
+    background: white;
+    color: var(--dark-blue);
     font-size: 1rem;
     text-align: center;
     z-index: 12;
