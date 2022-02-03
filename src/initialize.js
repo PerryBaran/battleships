@@ -36,18 +36,18 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour, 
     const computerButton = document.createElement('button');
     computerButton.className = 'swap computer'
     if (computer) {
-        computerButton.innerHTML = 'computer';
+        computerButton.innerHTML = 'COMPUTER';
     } else {
-        computerButton.innerHTML = 'player';
+        computerButton.innerHTML = 'PLAYER';
     }
     container2.appendChild(computerButton);
 
     const hardButton = document.createElement('button');
     hardButton.className = 'swap hard';
     if (hard) {
-        hardButton.innerHTML = 'hard';
+        hardButton.innerHTML = 'HARD';
     } else {
-        hardButton.innerHTML = 'easy';
+        hardButton.innerHTML = 'EASY';
     }
     if (!computer) {
         hardButton.style.opacity = 0.5;
@@ -58,12 +58,12 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour, 
     computerButton.addEventListener('click', () => {
         if (computer) {
             computer = false;
-            computerButton.innerHTML = 'player';
+            computerButton.innerHTML = 'PLAYER';
             hardButton.style.opacity = 0.5;
             hardButton.style.cursor = 'default';
         } else {
             computer = true;
-            computerButton.innerHTML = 'computer';
+            computerButton.innerHTML = 'COMPUTER';
             hardButton.style.opacity = 1;
             hardButton.style.cursor = 'pointer';
         }
@@ -73,10 +73,10 @@ const initializePage = (player1Name, player1Colour, player2Name, player2Colour, 
         if (computer) {
             if (hard) {
                 hard = false;
-                hardButton.innerHTML = 'easy'
+                hardButton.innerHTML = 'EASY'
             } else {
                 hard = true;
-                hardButton.innerHTML = 'hard'
+                hardButton.innerHTML = 'HARD'
             }  
         }  
     });

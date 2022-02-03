@@ -13,6 +13,8 @@ const gameLoop = (player1, player2) => {
     containerBottom.className = 'container';
     content.appendChild(containerBottom);
 
+    DOM.info(containerTop, player1, player2);
+
     const gameboardP1 = document.createElement('div');     
     gameboardP1.className = 'gameboard';
     gameboardP1.style.border = '2px solid ' + player1.getColour();

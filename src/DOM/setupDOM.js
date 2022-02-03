@@ -21,11 +21,11 @@ const instructionsDom = (player, container, position) => {
     hiddenInfoWrapper.className = 'info';
     hiddenInfoWrapper.style.display = 'none';
     const p1 = document.createElement('p');
-    p1.innerHTML = 'drag and drop ships to place on board';
+    p1.innerHTML = 'Drag and drop ships to place on board.';
     const p2 = document.createElement('p');
-    p2.innerHTML = 'click on unplaced ships to change orientation';
+    p2.innerHTML = 'Click on unplaced ships to change orientation.';
     const p3 = document.createElement('p');
-    p3.innerHTML = 'click on placed ships to remove them from the board';
+    p3.innerHTML = 'Click on placed ships to remove them from the board.';
     hiddenInfoWrapper.appendChild(p1);
     hiddenInfoWrapper.appendChild(p2);
     hiddenInfoWrapper.appendChild(p3);
@@ -107,7 +107,7 @@ const continueButton = (player, container) => {
         const wrapper = document.createElement('div');
         wrapper.className = 'next';
         container.appendChild(wrapper);
-        nextPage.innerHTML = 'continue';
+        nextPage.innerHTML = 'CONTINUE';
         nextPage.className = 'continue';
         wrapper.appendChild(nextPage);
     };

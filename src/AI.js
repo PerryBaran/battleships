@@ -119,7 +119,7 @@ function checkLineY(board, y, x, yDifference) {
         if (board[y2][x].hit                        //check if space is hot
         &&  board[y2][x].ship !== null) {           //check if space contains a ship
             if (!board[y2][x].ship.isSunk()) {      //check if ship is sunk
-                const y3 = y + (yDifference * -1);  //opposite y-cooridnate
+                const y3 = y - yDifference;         //opposite y-cooridnate
                 if (y3 > -1 && y3 < 10) {           //check if in board
                     if(!board[y3][x].hit) {         //check if not hit
                         return true
@@ -137,7 +137,7 @@ function checkLineX(board, y, x, xDifference) {
         if (board[y][x2].hit
         &&  board[y][x2].ship !== null) {
             if (!board[y][x2].ship.isSunk()) {
-                const x3 = x + (xDifference * -1);
+                const x3 = x - xDifference;
                 if (x3 > -1 && x3 < 10) {
                     if(!board[y][x3].hit) {
                         return true

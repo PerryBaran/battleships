@@ -8,14 +8,20 @@
 
 :root{
     --dark-blue: rgb(1, 60, 128);
-    --darker-blue: rgb(1, 28, 59);
+    --darker-blue:rgb(0, 44, 95);
 }
 
 button {
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+    border-radius: 2px;
     cursor:pointer;
 }
 
-
+button:hover {
+    background-color: var(--darker-blue)
+}
 
 /*initial screen*/
 #topbar {
@@ -81,23 +87,6 @@ input[type="color"] {
     cursor: pointer;
 }
 
-.computerInput {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10%;
-    width: 100%;
-}
-
-.computerInput > button {
-    display: inline-block;
-    font-size: 2rem;
-    background-color: none;
-    color: var(--dark-blue);
-    border: 2px solid var(--dark-blue);
-    border-radius: 2px;
-}
-
 #start {
     display: flex;
     justify-content: center;
@@ -110,17 +99,14 @@ input[type="color"] {
     height: 60px;
     font-size: 3rem;
     margin: auto;
-    background-color: var(--dark-blue);
-    color: white;
-    border: 2px solid var(--darker-blue);
-    border-radius: 10px;
 }
 
 .swap {
-    font-size: 2rem;
+    font-size: 1.5rem;
     background-color: var(--dark-blue);
     color: white;
-    border: 2px solid var(--darker-blue);
+    border: 1px solid white;
+    border-radius: 0px;
     text-align: center;
 }
 
@@ -137,6 +123,7 @@ input[type="color"] {
     position: relative;
     width: 100vw;
     height: 50vh;
+    overflow: visible;
 }
 
 .next {
@@ -150,11 +137,7 @@ input[type="color"] {
     inset: 0;
     width: 200px;
     height: 60px;
-    font-size: 3rem;
-    background-color: var(--dark-blue);
-    color: white;
-    border: 2px solid var(--darker-blue);
-    border-radius: 10px;
+    font-size: 2.2rem;
 }
 
 .harbor {
@@ -222,7 +205,7 @@ input[type="color"] {
 
 .instructions > button {
     position: absolute;
-    top: 18px;
+    top: 15px;
     right: 10px;
     display: inline-block;
     font-size: 1.8rem;
@@ -230,9 +213,6 @@ input[type="color"] {
     aspect-ratio: 1;
     height: 35px;
     border-radius: 100px;
-    color: white;
-    background: var(--dark-blue);
-    border: none;
     margin-left: 20px;
     cursor: help;
 }
@@ -247,8 +227,6 @@ input[type="color"] {
     margin-top: 3px;
     margin-bottom: 3px;
 }
-
-
 
 /*gameboard*/
 .gameboard {
@@ -298,9 +276,49 @@ input[type="color"] {
     height: 60px;
     font-size: 3rem;
     margin: auto;
-    background-color: var(--dark-blue);
-    color: white;
-    border: 2px solid var(--darker-blue);
-    border-radius: 2px;
     z-index: 20;
+}
+
+.gameInfo {
+    position: absolute;
+    bottom: -17.5px;
+    left: calc(50vw - 40px);
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    aspect-ratio: 1;
+    height: 35px;
+    border-radius: 100px;
+    margin-left: 20px;
+    z-index: 10;
+    cursor: help;
+}
+
+.moreGameInfo {
+    position: absolute;
+    inset: 0;
+    background: var(--dark-blue);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    z-index: 12;
+    height: fit-content;
+    margin: auto;
+}
+
+.moreGameInfo > p {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.background {
+    position: absolute;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 11;
 }
